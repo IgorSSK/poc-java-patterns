@@ -12,12 +12,19 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TranslationRequest {
-    private List<TranslationItem> items;
+    private List<String> texts;
     private String sourceLanguage;
     private String targetLanguage;
-    private ContentType contentType;
-    private boolean removeDuplicates;
-    private boolean detectSensitiveData;
-    private boolean useCache;
-    private boolean useDictionary;
+    private TranslationType type;
+    private String contentType;
+    private byte[] fileContent; // Para documentos e imagens
+    
+    @Builder.Default
+    private boolean useCache = true;
+    
+    @Builder.Default
+    private boolean removeDuplicates = true;
+    
+    @Builder.Default
+    private boolean removeSensitiveData = true;
 }

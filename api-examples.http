@@ -1,0 +1,129 @@
+### Arquivo de exemplos de requisições para testar a API
+### Pode ser usado com VS Code REST Client extension
+
+### 1. Health Check
+GET http://localhost:8080/actuator/health
+
+###
+
+### 2. Idiomas Suportados
+GET http://localhost:8080/api/v1/translations/languages
+
+###
+
+### 3. Tradução Simples de Texto
+POST http://localhost:8080/api/v1/translations
+Content-Type: application/json
+
+{
+  "texts": [
+    "Hello world",
+    "Good morning",
+    "How are you?",
+    "Hello world"
+  ],
+  "sourceLanguage": "en",
+  "targetLanguage": "pt",
+  "type": "TEXT",
+  "useCache": true,
+  "removeDuplicates": true,
+  "removeSensitiveData": true
+}
+
+###
+
+### 4. Tradução Rápida (Query Params)
+POST http://localhost:8080/api/v1/translations/quick?texts=Hello&texts=World&texts=Good%20morning&from=en&to=pt
+
+###
+
+### 5. Tradução de HTML
+POST http://localhost:8080/api/v1/translations/html
+Content-Type: application/json
+
+{
+  "htmlTexts": [
+    "<h1>Welcome to our website</h1>",
+    "<p>This is a <strong>beautiful</strong> paragraph with <a href='#'>links</a></p>",
+    "<div class='container'><span>Hello World</span></div>"
+  ],
+  "from": "en",
+  "to": "pt"
+}
+
+###
+
+### 6. Teste com Dados Sensíveis (LGPD)
+POST http://localhost:8080/api/v1/translations
+Content-Type: application/json
+
+{
+  "texts": [
+    "Meu CPF é 123.456.789-00 e meu email é teste@email.com",
+    "Entre em contato: (11) 99999-9999",
+    "Cartão: 1234-5678-9012-3456"
+  ],
+  "sourceLanguage": "pt",
+  "targetLanguage": "en",
+  "type": "TEXT",
+  "useCache": false,
+  "removeDuplicates": false,
+  "removeSensitiveData": true
+}
+
+###
+
+### 7. Tradução PT -> EN
+POST http://localhost:8080/api/v1/translations
+Content-Type: application/json
+
+{
+  "texts": [
+    "Olá mundo",
+    "Bom dia",
+    "Como você está?"
+  ],
+  "sourceLanguage": "pt",
+  "targetLanguage": "en",
+  "type": "TEXT"
+}
+
+###
+
+### 8. Tradução ES -> PT
+POST http://localhost:8080/api/v1/translations
+Content-Type: application/json
+
+{
+  "texts": [
+    "Hola mundo",
+    "Buenos días",
+    "¿Cómo estás?"
+  ],
+  "sourceLanguage": "es",
+  "targetLanguage": "pt",
+  "type": "TEXT"
+}
+
+###
+
+### 9. Tradução com Cache Desabilitado
+POST http://localhost:8080/api/v1/translations
+Content-Type: application/json
+
+{
+  "texts": ["Hello world"],
+  "sourceLanguage": "en",
+  "targetLanguage": "pt",
+  "type": "TEXT",
+  "useCache": false,
+  "removeDuplicates": false,
+  "removeSensitiveData": false
+}
+
+###
+
+### 10. Métricas Prometheus
+GET http://localhost:8080/actuator/prometheus
+
+###
